@@ -1,0 +1,28 @@
+diff --git a/tools/gyp/v8.gyp b/tools/gyp/v8.gyp
+index b8317cb..ac09c95 100644
+--- a/tools/gyp/v8.gyp
++++ b/tools/gyp/v8.gyp
+@@ -127,6 +127,7 @@
+     {
+       'target_name': 'v8_snapshot',
+       'type': 'static_library',
++      'standalone_static_library': 1,
+       'conditions': [
+         ['want_separate_host_toolset==1', {
+           'toolsets': ['host', 'target'],
+@@ -197,6 +198,7 @@
+     {
+       'target_name': 'v8_nosnapshot',
+       'type': 'static_library',
++      'standalone_static_library': 1,
+       'dependencies': [
+         'v8_base',
+       ],
+@@ -321,6 +323,7 @@
+     {
+       'target_name': 'v8_base',
+       'type': 'static_library',
++      'standalone_static_library': 1,
+       'dependencies': [
+         'v8_libbase',
+       ],
