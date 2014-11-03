@@ -24,17 +24,29 @@ module Libv8
 
     def find(name)
       return nil if name.empty?
-      path, _, status = Open3.capture3 "which #{name}"
+      if Open3.respond_to? :capture3
+        path, _, status = Open3.capture3 "which #{name}"
+      else
+        path = %x[which #{name}]
+        status = $?
+      end
       path.chomp!
       determine_type(path).new(path) if status.success?
     end
 
     def determine_type(compiler_path)
-      compiler_version = Open3.capture3("#{compiler_path} -v")[0..1].join
+      if Open3.respond_to? :capture3
+        compiler_version = Open3.capture3("#{compiler_path} -v")[0..1].join
+      else
+        compiler_version = %x[#{compiler_path} -v 2>&1]
+        compiler_version = compiler_version.split("\n")[-1]
+      end
+      
 
       case compiler_version
       when /\bclang\b/i then Clang
-      when /^gcc/i      then GCC
+      when /^gcc/i      then
+        GCC
       else                   GenericCompiler
       end
     end

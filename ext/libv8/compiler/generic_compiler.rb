@@ -31,7 +31,11 @@ module Libv8
       end
 
       def call(*arguments)
-        Open3.capture3 arguments.unshift(@path).join(' ')
+        if Open3.respond_to? :capture3
+          Open3.capture3 arguments.unshift(@path).join(' ')
+        else
+          [%x[#{@path} #{arguments.join(' ')} 2>&1], '', $?]
+        end
       end
     end
   end
