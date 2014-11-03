@@ -17,6 +17,12 @@ module Libv8
         `git fetch`
         `git checkout #{Libv8::VERSION.gsub(/\.\d+$/,'')} -f`
         `rm -f .applied_patches`
+        puts "checking out icu52 dependency (this can take a while)"
+        `svn checkout --force https://src.chromium.org/chrome/trunk/deps/third_party/icu52 third_party/icu --revision 277999`
+        puts "checking out gtest dependency"
+        `svn checkout --force http://googletest.googlecode.com/svn/trunk testing/gtest --revision 692` 
+        puts "checking out gmock dependency"
+        `svn checkout --force http://googlemock.googlecode.com/svn/trunk testing/gmock --revision 485`
       end
 
       return unless git?(GYP_Source)
