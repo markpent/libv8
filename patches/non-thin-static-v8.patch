@@ -1,5 +1,5 @@
 diff --git a/tools/gyp/v8.gyp b/tools/gyp/v8.gyp
-index b8317cb..ac09c95 100644
+index b8317cb..c7671d7 100644
 --- a/tools/gyp/v8.gyp
 +++ b/tools/gyp/v8.gyp
 @@ -127,6 +127,7 @@
@@ -18,7 +18,15 @@ index b8317cb..ac09c95 100644
        'dependencies': [
          'v8_base',
        ],
-@@ -321,6 +323,7 @@
+@@ -228,6 +230,7 @@
+     {
+       'target_name': 'v8_external_snapshot',
+       'type': 'static_library',
++      'standalone_static_library': 1,
+       'conditions': [
+         [ 'v8_use_external_startup_data==1', {
+           'conditions': [
+@@ -321,6 +324,7 @@
      {
        'target_name': 'v8_base',
        'type': 'static_library',
@@ -26,3 +34,19 @@ index b8317cb..ac09c95 100644
        'dependencies': [
          'v8_libbase',
        ],
+@@ -1206,6 +1210,7 @@
+     {
+       'target_name': 'v8_libbase',
+       'type': 'static_library',
++      'standalone_static_library': 1,
+       'variables': {
+         'optimize': 'max',
+       },
+@@ -1465,6 +1470,7 @@
+     {
+       'target_name': 'v8_libplatform',
+       'type': 'static_library',
++      'standalone_static_library': 1,
+       'variables': {
+         'optimize': 'max',
+       },
